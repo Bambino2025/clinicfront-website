@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Features — ClinicFront AI Phone Answering for Private Clinics</title>
+  <meta name="description" content="See how ClinicFront works: 24/7 call answering, smart appointment booking, PMS integration, and more. Automate your front desk.">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Features — ClinicFront AI Phone Answering">
+  <meta property="og:description" content="From phone call to booked appointment — fully automated, zero workflow changes for your staff.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Features — ClinicFront">
+  <meta name="twitter:description" content="From phone call to booked appointment — fully automated.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            primary: {
+              DEFAULT: '#2563EB',
+              dark: '#1D4ED8',
+              light: '#DBEAFE',
+            },
+            text: {
+              DEFAULT: '#1E293B',
+              muted: '#64748B',
+            },
+            border: '#E2E8F0',
+            subtle: '#F8FAFC',
+          },
+        },
+      },
+    }
+  </script>
+
+  <style>
+    /* ===== GLOBAL STYLES ===== */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .grain-overlay {
+      position: relative;
+    }
+
+    .grain-overlay::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.03;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    /* Scroll-triggered animations */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .fade-up-delay-1 { transition-delay: 0.1s; }
+    .fade-up-delay-2 { transition-delay: 0.2s; }
+    .fade-up-delay-3 { transition-delay: 0.3s; }
+    .fade-up-delay-4 { transition-delay: 0.4s; }
+    .fade-up-delay-5 { transition-delay: 0.5s; }
+    .fade-up-delay-6 { transition-delay: 0.6s; }
+
+    /* Sticky header with blur */
+    .nav-scrolled {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Navigation dropdown */
+    .nav-dropdown {
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.2s ease;
+    }
+
+    .nav-dropdown-trigger:hover .nav-dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    /* Button hover effects */
+    .btn-primary {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+
+    /* Animated underlines */
+    .animated-underline {
+      position: relative;
+      text-decoration: none;
+    }
+
+    .animated-underline::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .animated-underline:hover::after {
+      transform: scaleX(1);
+    }
+
+    /* Magnetic buttons */
+    @media (prefers-reduced-motion: no-preference) {
+      .magnetic-btn {
+        transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+    }
+
+    /* Custom cursor */
+    @media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+      .custom-cursor {
+        position: fixed;
+        width: 12px;
+        height: 12px;
+        background: #2563EB;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
+        transform: translate(-50%, -50%);
+        mix-blend-mode: difference;
+      }
+
+      .custom-cursor.hover {
+        width: 40px;
+        height: 40px;
+        background: rgba(37, 99, 235, 0.3);
+        border: 2px solid #2563EB;
+      }
+
+      body.custom-cursor-active {
+        cursor: none;
+      }
+
+      body.custom-cursor-active a,
+      body.custom-cursor-active button,
+      body.custom-cursor-active [role="button"] {
+        cursor: none;
+      }
+    }
+
+    /* ===== HERO ===== */
+    .features-hero {
+      background: linear-gradient(180deg, #EFF6FF 0%, #FFFFFF 100%);
+    }
+
+    /* ===== FLOW DIAGRAM ===== */
+    .flow-card {
+      background: white;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      box-shadow: 0 4px 15px -5px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .flow-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.15);
+    }
+
+    .flow-line {
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      transition: stroke-dashoffset 1s ease;
+    }
+
+    .flow-line.animated {
+      stroke-dashoffset: 0;
+    }
+
+    /* ===== FEATURE CARDS ===== */
+    .feature-card {
+      background: white;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
+      padding: 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.15);
+      border-color: #2563EB;
+    }
+
+    .feature-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .feature-card:hover .feature-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    /* ===== ANALYTICS DASHBOARD ===== */
+    .analytics-bg {
+      background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 50%, #BFDBFE 100%);
+    }
+
+    .dashboard-mockup {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .dashboard-float {
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .stat-card-mini {
+      background: white;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .chart-line {
+      stroke-dasharray: 500;
+      stroke-dashoffset: 500;
+    }
+
+    .chart-line.animated {
+      animation: drawLine 2s ease forwards;
+    }
+
+    @keyframes drawLine {
+      to { stroke-dashoffset: 0; }
+    }
+
+    /* ===== DEEP DIVE FEATURES ===== */
+    .deep-dive-visual {
+      background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .deep-dive-visual:hover {
+      transform: scale(1.02);
+    }
+
+    /* Interactive Calendar */
+    .calendar-date {
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border-radius: 50%;
+    }
+
+    .calendar-date:hover {
+      background: #DBEAFE;
+      color: #2563EB;
+    }
+
+    .calendar-date.active {
+      background: #2563EB;
+      color: white;
+      font-weight: 600;
+    }
+
+    .appointment-card {
+      animation: appointmentFade 0.3s ease;
+    }
+
+    @keyframes appointmentFade {
+      from {
+        opacity: 0;
+        transform: translateY(5px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .calendar-mockup {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px -5px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .chat-mockup {
+      background: #F9FAFB;
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+
+    .handoff-flow {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 0;
+      overflow-x: auto;
+      padding: 1rem 0;
+    }
+
+    .handoff-step {
+      background: white;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.75rem;
+      min-width: 140px;
+      box-shadow: 0 4px 15px -5px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .handoff-step.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .handoff-step:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 25px -8px rgba(0, 0, 0, 0.15);
+    }
+
+    .handoff-step-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .handoff-connector {
+      display: flex;
+      align-items: center;
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, #2563EB, #60A5FA, #93C5FD);
+      position: relative;
+      margin-top: 28px;
+      flex-shrink: 0;
+    }
+
+    .handoff-connector::before {
+      content: '';
+      position: absolute;
+      top: -3px;
+      left: 0;
+      width: 8px;
+      height: 8px;
+      background: #2563EB;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #2563EB, 0 0 16px #60A5FA;
+      animation: handoffPulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes handoffPulse {
+      0% {
+        left: 0;
+        opacity: 1;
+      }
+      100% {
+        left: calc(100% - 8px);
+        opacity: 0.6;
+      }
+    }
+
+    .handoff-connector::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.5), transparent);
+      animation: handoffGlow 1.5s ease-in-out infinite;
+    }
+
+    @keyframes handoffGlow {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      .handoff-flow {
+        flex-direction: column;
+        align-items: center;
+      }
+      .handoff-connector {
+        width: 2px;
+        height: 40px;
+        margin-top: 0;
+        background: linear-gradient(180deg, #2563EB, #60A5FA, #93C5FD);
+      }
+      .handoff-connector::before {
+        top: 0;
+        left: -3px;
+        animation: handoffPulseVertical 1.5s ease-in-out infinite;
+      }
+      @keyframes handoffPulseVertical {
+        0% { top: 0; opacity: 1; }
+        100% { top: calc(100% - 8px); opacity: 0.6; }
+      }
+    }
+
+    /* ===== INTEGRATION CARDS ===== */
+    .integration-card {
+      transition: all 0.3s ease;
+    }
+
+    .integration-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
+      border-color: #2563EB;
+    }
+
+    /* ===== CTA GRADIENT ===== */
+    .cta-gradient {
+      background: linear-gradient(135deg, #2563EB 0%, #1E40AF 50%, #1D4ED8 100%);
+      position: relative;
+    }
+
+    .cta-gradient::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at top, rgba(255,255,255,0.1) 0%, transparent 60%);
+    }
+
+    /* ===== PAGE LOADER ===== */
+    @media (prefers-reduced-motion: no-preference) {
+      .page-loader {
+        position: fixed;
+        inset: 0;
+        background: white;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: opacity 0.4s ease, visibility 0.4s ease;
+      }
+
+      .page-loader.loaded {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .loader-logo {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #2563EB;
+        animation: pulse 1s ease-in-out infinite;
+      }
+    }
+
+    /* ===== ACCESSIBILITY ===== */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #2563EB;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0 0 8px 8px;
+      z-index: 10000;
+      transition: top 0.2s ease;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ===== NEWSLETTER ===== */
+    .newsletter-input {
+      background: white;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      width: 100%;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .newsletter-input:focus {
+      outline: none;
+      border-color: #2563EB;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      background: #F1F5F9;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .social-icon:hover {
+      background: #2563EB;
+      color: white;
+    }
+  </style>
+</head>
+<body class="font-sans text-text bg-white antialiased">
+
+  <!-- Skip Link for Accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Page Loader -->
+  <div class="page-loader" id="page-loader">
+    <div class="loader-logo">ClinicFront</div>
+  </div>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" id="custom-cursor"></div>
+
+  <!-- Navigation -->
+  <nav id="navbar" class="sticky top-0 z-50 bg-white border-b border-border transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+
+        <!-- Logo -->
+        <a href="index.html" class="text-xl font-bold text-primary">ClinicFront</a>
+
+        <!-- Desktop Nav Links -->
+        <div class="hidden md:flex items-center gap-8">
+          <a href="features.html" class="text-primary font-medium">Features</a>
+          <div class="relative nav-dropdown-trigger">
+            <button class="flex items-center gap-1 text-text-muted hover:text-text transition-colors">
+              Integrations
+              <i data-lucide="chevron-down" class="w-4 h-4"></i>
+            </button>
+            <div class="nav-dropdown absolute top-full left-0 mt-2 w-56 bg-white border border-border rounded-xl shadow-lg py-2">
+              <a href="integrations/open-dental.html" class="block px-4 py-2 text-sm text-text-muted hover:text-text hover:bg-subtle">Open Dental</a>
+              <a href="integrations/dentrix.html" class="block px-4 py-2 text-sm text-text-muted hover:text-text hover:bg-subtle">Dentrix</a>
+              <a href="integrations/eaglesoft.html" class="block px-4 py-2 text-sm text-text-muted hover:text-text hover:bg-subtle">Eaglesoft</a>
+              <a href="integrations/curve-dental.html" class="block px-4 py-2 text-sm text-text-muted hover:text-text hover:bg-subtle">Curve Dental</a>
+              <a href="integrations/practice-fusion.html" class="block px-4 py-2 text-sm text-text-muted hover:text-text hover:bg-subtle">Practice Fusion</a>
+              <a href="integrations/google-calendar.html" class="block px-4 py-2 text-sm text-text-muted hover:text-text hover:bg-subtle">Google Calendar</a>
+              <div class="border-t border-border my-2"></div>
+              <a href="integrations/index.html" class="block px-4 py-2 text-sm text-primary font-medium hover:bg-subtle">See All Integrations →</a>
+            </div>
+          </div>
+          <a href="index.html#pricing" class="animated-underline text-text-muted hover:text-text transition-colors">Pricing</a>
+        </div>
+
+        <!-- Desktop CTAs -->
+        <div class="hidden md:flex items-center gap-4">
+          <a href="#contact" class="px-4 py-2 text-primary border border-primary rounded-lg hover:bg-primary-light transition-colors">
+            Contact Sales
+          </a>
+          <a href="#login" class="text-text-muted hover:text-text transition-colors">
+            Login
+          </a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="md:hidden p-2">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-border bg-white">
+      <div class="px-4 py-4 space-y-4">
+        <a href="features.html" class="block text-primary font-medium">Features</a>
+        <a href="integrations/index.html" class="block text-text-muted hover:text-text">Integrations</a>
+        <a href="index.html#pricing" class="block text-text-muted hover:text-text">Pricing</a>
+        <hr class="border-border">
+        <a href="#contact" class="block text-primary font-medium">Contact Sales</a>
+        <a href="#login" class="block text-text-muted">Login</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+  <!-- SECTION 1: Hero -->
+  <section class="py-20 md:py-28 features-hero">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="fade-up text-4xl md:text-5xl lg:text-6xl font-bold text-text leading-tight mb-6">
+        How ClinicFront Works
+      </h1>
+      <p class="fade-up fade-up-delay-1 text-lg md:text-xl text-text-muted max-w-2xl mx-auto mb-8">
+        From phone call to booked appointment — fully automated, zero workflow changes for your staff.
+      </p>
+      <a href="#demo" class="fade-up fade-up-delay-2 magnetic-btn btn-primary inline-flex items-center gap-2 px-8 py-4 bg-primary text-white font-semibold rounded-lg hover:bg-primary-dark transition-colors shadow-lg shadow-primary/25">
+        Book a Free Demo
+        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- SECTION 2: Flow Diagram -->
+  <section class="py-16 md:py-24 bg-white grain-overlay">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+
+        <!-- Left: Text -->
+        <div class="fade-up">
+          <h2 class="text-3xl md:text-4xl font-bold text-text mb-4">
+            Your calls, handled end-to-end.
+          </h2>
+          <p class="text-lg text-text-muted mb-8">
+            A seamless flow from patient call to appointment confirmation — all automated.
+          </p>
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
+              </div>
+              <span class="text-text-muted">Patient calls your clinic number</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
+              </div>
+              <span class="text-text-muted">ClinicFront AI answers and handles the conversation</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
+              </div>
+              <span class="text-text-muted">Appointment is booked directly into your PMS</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
+              </div>
+              <span class="text-text-muted">Patient receives SMS confirmation</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Right: Visual Flow Diagram -->
+        <div class="fade-up fade-up-delay-1" id="flow-diagram">
+          <div class="relative flex flex-col items-center">
+            <!-- Card 1: Incoming Call -->
+            <div class="flow-card flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                <i data-lucide="phone-incoming" class="w-5 h-5 text-primary"></i>
+              </div>
+              <span class="font-semibold text-text">Incoming Call</span>
+            </div>
+
+            <!-- SVG Connector Line 1 -->
+            <svg width="4" height="40" class="mb-4">
+              <line x1="2" y1="0" x2="2" y2="40" stroke="#2563EB" stroke-width="2" stroke-dasharray="4,4" class="flow-line" />
+            </svg>
+
+            <!-- Card 2: ClinicFront AI -->
+            <div class="flow-card flex flex-col items-center text-center mb-4">
+              <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mb-2">
+                <i data-lucide="bot" class="w-6 h-6 text-white"></i>
+              </div>
+              <span class="font-semibold text-text">ClinicFront AI</span>
+              <span class="text-sm text-text-muted">Handles booking, questions, routing</span>
+            </div>
+
+            <!-- SVG Split Connector -->
+            <svg width="200" height="50" class="mb-4">
+              <line x1="100" y1="0" x2="100" y2="20" stroke="#2563EB" stroke-width="2" stroke-dasharray="4,4" class="flow-line" />
+              <line x1="100" y1="20" x2="50" y2="50" stroke="#2563EB" stroke-width="2" stroke-dasharray="4,4" class="flow-line" />
+              <line x1="100" y1="20" x2="150" y2="50" stroke="#2563EB" stroke-width="2" stroke-dasharray="4,4" class="flow-line" />
+            </svg>
+
+            <!-- Cards 3: PMS & SMS -->
+            <div class="flex gap-6 mb-4">
+              <div class="flow-card flex flex-col items-center text-center">
+                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mb-2">
+                  <i data-lucide="calendar" class="w-5 h-5 text-green-600"></i>
+                </div>
+                <span class="font-semibold text-text text-sm">PMS</span>
+                <span class="text-xs text-text-muted">Booked instantly</span>
+              </div>
+              <div class="flow-card flex flex-col items-center text-center">
+                <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center mb-2">
+                  <i data-lucide="message-square" class="w-5 h-5 text-purple-600"></i>
+                </div>
+                <span class="font-semibold text-text text-sm">SMS</span>
+                <span class="text-xs text-text-muted">Confirmation sent</span>
+              </div>
+            </div>
+
+            <!-- SVG Merge Connector -->
+            <svg width="200" height="50" class="mb-4">
+              <line x1="50" y1="0" x2="100" y2="30" stroke="#2563EB" stroke-width="2" stroke-dasharray="4,4" class="flow-line" />
+              <line x1="150" y1="0" x2="100" y2="30" stroke="#2563EB" stroke-width="2" stroke-dasharray="4,4" class="flow-line" />
+              <line x1="100" y1="30" x2="100" y2="50" stroke="#2563EB" stroke-width="2" stroke-dasharray="4,4" class="flow-line" />
+            </svg>
+
+            <!-- Card 4: Confirmed -->
+            <div class="flow-card flex items-center gap-3 bg-green-50 border-green-200">
+              <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
+                <i data-lucide="check-circle" class="w-5 h-5 text-white"></i>
+              </div>
+              <span class="font-semibold text-green-700">Appointment Confirmed</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: Features Grid -->
+  <section class="py-16 md:py-24 bg-subtle grain-overlay">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Header -->
+      <div class="text-center mb-12 fade-up">
+        <h2 class="text-3xl md:text-4xl font-bold text-text mb-4">
+          Everything You Need to Automate Your Front Desk
+        </h2>
+        <p class="text-lg text-text-muted">
+          Powerful features built for busy clinics.
+        </p>
+      </div>
+
+      <!-- Features Grid -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Feature 1 -->
+        <div class="fade-up fade-up-delay-1 feature-card">
+          <div class="feature-icon">
+            <i data-lucide="phone" class="w-7 h-7 text-primary"></i>
+          </div>
+          <h3 class="text-xl font-bold text-text mb-1">24/7 Call Answering</h3>
+          <p class="text-primary font-medium text-sm mb-3">Never Miss a Call</p>
+          <p class="text-text-muted">Every call answered instantly, day or night. No hold music, no voicemail.</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="fade-up fade-up-delay-2 feature-card">
+          <div class="feature-icon">
+            <i data-lucide="calendar-check" class="w-7 h-7 text-primary"></i>
+          </div>
+          <h3 class="text-xl font-bold text-text mb-1">Smart Appointment Booking</h3>
+          <p class="text-primary font-medium text-sm mb-3">Books Directly Into Your PMS</p>
+          <p class="text-text-muted">Real-time scheduling, confirmations, and calendar updates — fully automated.</p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="fade-up fade-up-delay-3 feature-card">
+          <div class="feature-icon">
+            <i data-lucide="phone-forwarded" class="w-7 h-7 text-primary"></i>
+          </div>
+          <h3 class="text-xl font-bold text-text mb-1">Intelligent Call Routing</h3>
+          <p class="text-primary font-medium text-sm mb-3">Escalate When Needed</p>
+          <p class="text-text-muted">Complex issues are seamlessly transferred to your staff with full context.</p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="fade-up fade-up-delay-4 feature-card">
+          <div class="feature-icon">
+            <i data-lucide="message-square" class="w-7 h-7 text-primary"></i>
+          </div>
+          <h3 class="text-xl font-bold text-text mb-1">SMS Confirmations & Reminders</h3>
+          <p class="text-primary font-medium text-sm mb-3">Reduce No-Shows</p>
+          <p class="text-text-muted">Automatic text confirmations and appointment reminders.</p>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="fade-up fade-up-delay-5 feature-card">
+          <div class="feature-icon">
+            <i data-lucide="plug" class="w-7 h-7 text-primary"></i>
+          </div>
+          <h3 class="text-xl font-bold text-text mb-1">PMS Integration</h3>
+          <p class="text-primary font-medium text-sm mb-3">Works With Your Software</p>
+          <p class="text-text-muted">Direct integration with Open Dental, Dentrix, Eaglesoft, and more.</p>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="fade-up fade-up-delay-6 feature-card">
+          <div class="feature-icon">
+            <i data-lucide="globe" class="w-7 h-7 text-primary"></i>
+          </div>
+          <h3 class="text-xl font-bold text-text mb-1">Multilingual Support</h3>
+          <p class="text-primary font-medium text-sm mb-3">Serve Every Patient</p>
+          <p class="text-text-muted">AI handles calls in English, Spanish, and more — automatically detected.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: Analytics Dashboard -->
+  <section class="py-16 md:py-24 analytics-bg" id="analytics-section">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+
+        <!-- Left: Dashboard Mockup -->
+        <div class="fade-up dashboard-float">
+          <div class="dashboard-mockup p-6">
+            <!-- Dashboard Header -->
+            <div class="flex items-center justify-between mb-6">
+              <div>
+                <h4 class="font-bold text-text">ClinicFront Analytics</h4>
+                <p class="text-sm text-text-muted">Today's Performance</p>
+              </div>
+              <div class="text-xs text-text-muted bg-green-100 text-green-700 px-2 py-1 rounded-full">Live</div>
+            </div>
+
+            <!-- Stat Cards -->
+            <div class="grid grid-cols-2 gap-4 mb-6">
+              <div class="stat-card-mini">
+                <p class="text-2xl font-bold text-primary dashboard-stat" data-target="47">0</p>
+                <p class="text-xs text-text-muted">Calls Today</p>
+              </div>
+              <div class="stat-card-mini">
+                <p class="text-2xl font-bold text-green-600 dashboard-stat" data-target="23">0</p>
+                <p class="text-xs text-text-muted">Booked Appointments</p>
+              </div>
+              <div class="stat-card-mini">
+                <p class="text-2xl font-bold text-purple-600">45s</p>
+                <p class="text-xs text-text-muted">Avg Handle Time</p>
+              </div>
+              <div class="stat-card-mini">
+                <p class="text-2xl font-bold text-orange-600 dashboard-stat" data-target="98" data-suffix="%">0</p>
+                <p class="text-xs text-text-muted">Patient Satisfaction</p>
+              </div>
+            </div>
+
+            <!-- Chart -->
+            <div class="bg-subtle rounded-lg p-4">
+              <p class="text-xs text-text-muted mb-3">Calls over time</p>
+              <svg viewBox="0 0 300 80" class="w-full h-20">
+                <polyline
+                  class="chart-line"
+                  fill="none"
+                  stroke="#2563EB"
+                  stroke-width="2"
+                  points="0,60 30,50 60,55 90,40 120,45 150,30 180,35 210,20 240,25 270,15 300,10"
+                />
+                <polyline
+                  fill="none"
+                  stroke="#DBEAFE"
+                  stroke-width="1"
+                  points="0,70 300,70"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Text -->
+        <div class="fade-up fade-up-delay-1">
+          <h2 class="text-3xl md:text-4xl font-bold text-text mb-4">
+            Track everything, in real-time.
+          </h2>
+          <p class="text-lg text-text-muted mb-8">
+            See exactly how ClinicFront is performing for your clinic — calls answered, appointments booked, questions handled.
+          </p>
+          <ul class="space-y-4">
+            <li class="flex items-center gap-3">
+              <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center">
+                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
+              </div>
+              <span class="text-text">Live call monitoring</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center">
+                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
+              </div>
+              <span class="text-text">Appointment analytics</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center">
+                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
+              </div>
+              <span class="text-text">Conversation logs</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center">
+                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
+              </div>
+              <span class="text-text">Weekly email reports</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: Deep Dive Features -->
+  <section class="py-16 md:py-24 bg-white grain-overlay">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
+
+      <!-- Block 1: Appointment Booking (Text Left, Visual Right) -->
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="fade-up">
+          <h2 class="text-2xl md:text-3xl font-bold text-text mb-4">
+            Appointment Booking That Actually Works
+          </h2>
+          <p class="text-text-muted mb-6">
+            ClinicFront checks real-time availability, offers slots, and books directly into your practice management system.
+          </p>
+          <ul class="space-y-3">
+            <li class="flex items-center gap-3">
+              <i data-lucide="check" class="w-5 h-5 text-green-500"></i>
+              <span class="text-text">Real-time availability</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i data-lucide="check" class="w-5 h-5 text-green-500"></i>
+              <span class="text-text">Syncs to PMS instantly</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i data-lucide="check" class="w-5 h-5 text-green-500"></i>
+              <span class="text-text">Handles rescheduling too</span>
+            </li>
+          </ul>
+        </div>
+        <div class="fade-up fade-up-delay-1 deep-dive-visual">
+          <div class="calendar-mockup p-4" id="interactive-calendar">
+            <div class="flex items-center justify-between mb-4">
+              <span class="font-semibold text-text">September 2025</span>
+              <div class="flex gap-1">
+                <button class="p-1 hover:bg-subtle rounded"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+                <button class="p-1 hover:bg-subtle rounded"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+              </div>
+            </div>
+            <div class="grid grid-cols-7 gap-1 text-center text-xs mb-2">
+              <span class="text-text-muted">S</span>
+              <span class="text-text-muted">M</span>
+              <span class="text-text-muted">T</span>
+              <span class="text-text-muted">W</span>
+              <span class="text-text-muted">T</span>
+              <span class="text-text-muted">F</span>
+              <span class="text-text-muted">S</span>
+            </div>
+            <div class="grid grid-cols-7 gap-1 text-center text-sm">
+              <span></span>
+              <span class="p-2">1</span>
+              <span class="p-2">2</span>
+              <span class="p-2">3</span>
+              <span class="p-2">4</span>
+              <span class="p-2">5</span>
+              <span class="p-2">6</span>
+              <span class="p-2">7</span>
+              <span class="p-2">8</span>
+              <span class="p-2">9</span>
+              <span class="p-2">10</span>
+              <span class="p-2">11</span>
+              <span class="p-2">12</span>
+              <span class="p-2">13</span>
+              <span class="p-2">14</span>
+              <span class="p-2 calendar-date" data-date="15">15</span>
+              <span class="p-2">16</span>
+              <span class="p-2">17</span>
+              <span class="p-2">18</span>
+              <span class="p-2 calendar-date active" data-date="19">19</span>
+              <span class="p-2">20</span>
+              <span class="p-2">21</span>
+              <span class="p-2 calendar-date" data-date="22">22</span>
+              <span class="p-2">23</span>
+              <span class="p-2">24</span>
+              <span class="p-2 calendar-date" data-date="25">25</span>
+              <span class="p-2">26</span>
+              <span class="p-2">27</span>
+            </div>
+            <div class="mt-4 bg-primary/10 border-l-4 border-primary rounded-r-lg p-3 appointment-card" id="appointment-display">
+              <p class="text-sm font-semibold text-text" id="appointment-title">Dr. Smith - 2:00 PM</p>
+              <p class="text-xs text-text-muted" id="appointment-details">Cleaning • AI Booked</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Block 2: Knowledge Base (Visual Left, Text Right) -->
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="fade-up order-2 lg:order-1 deep-dive-visual">
+          <div class="chat-mockup space-y-3">
+            <div class="flex justify-end">
+              <div class="bg-primary text-white rounded-2xl rounded-tr-sm px-4 py-2 max-w-[80%]">
+                <p class="text-sm">What are your hours?</p>
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+                <i data-lucide="bot" class="w-4 h-4 text-white"></i>
+              </div>
+              <div class="bg-white rounded-2xl rounded-tl-sm px-4 py-2 shadow-sm">
+                <p class="text-sm text-text">We're open Monday through Friday, 8am to 6pm, and Saturdays 9am to 2pm. Would you like to schedule an appointment?</p>
+              </div>
+            </div>
+            <div class="flex justify-end">
+              <div class="bg-primary text-white rounded-2xl rounded-tr-sm px-4 py-2 max-w-[80%]">
+                <p class="text-sm">Do you take Delta Dental?</p>
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+                <i data-lucide="bot" class="w-4 h-4 text-white"></i>
+              </div>
+              <div class="bg-white rounded-2xl rounded-tl-sm px-4 py-2 shadow-sm">
+                <p class="text-sm text-text">Yes, we accept Delta Dental and most major insurance plans!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="fade-up fade-up-delay-1 order-1 lg:order-2">
+          <h2 class="text-2xl md:text-3xl font-bold text-text mb-4">
+            Answer Every Question, Every Time
+          </h2>
+          <p class="text-text-muted mb-6">
+            Train ClinicFront on your clinic's FAQs — hours, location, services, insurance — and it handles them perfectly.
+          </p>
+          <ul class="space-y-3">
+            <li class="flex items-center gap-3">
+              <i data-lucide="check" class="w-5 h-5 text-green-500"></i>
+              <span class="text-text">Custom knowledge base</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i data-lucide="check" class="w-5 h-5 text-green-500"></i>
+              <span class="text-text">Always accurate</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i data-lucide="check" class="w-5 h-5 text-green-500"></i>
+              <span class="text-text">Updates in minutes</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Block 3: Handoff (Text Left, Visual Right) -->
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="fade-up">
+          <h2 class="text-2xl md:text-3xl font-bold text-text mb-4">
+            Seamless Handoff to Your Team
+          </h2>
+          <p class="text-text-muted mb-6">
+            When a patient needs a human, ClinicFront transfers the call with full context — no repeating information.
+          </p>
+          <ul class="space-y-3">
+            <li class="flex items-center gap-3">
+              <i data-lucide="check" class="w-5 h-5 text-green-500"></i>
+              <span class="text-text">Smart escalation rules</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i data-lucide="check" class="w-5 h-5 text-green-500"></i>
+              <span class="text-text">Context passed to staff</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <i data-lucide="check" class="w-5 h-5 text-green-500"></i>
+              <span class="text-text">Never a dead end</span>
+            </li>
+          </ul>
+        </div>
+        <div class="fade-up fade-up-delay-1 deep-dive-visual">
+          <div class="handoff-flow" id="handoff-flow">
+            <!-- Step 1: AI Detection -->
+            <div class="handoff-step" style="transition-delay: 0.1s;">
+              <div class="handoff-step-icon bg-gradient-to-br from-blue-500 to-blue-600">
+                <i data-lucide="bot" class="w-7 h-7 text-white"></i>
+              </div>
+              <div>
+                <p class="text-sm font-bold text-text">AI Detects Issue</p>
+                <p class="text-xs text-text-muted">Complex request identified</p>
+              </div>
+            </div>
+
+            <!-- Connector 1 -->
+            <div class="handoff-connector"></div>
+
+            <!-- Step 2: Context Prepared -->
+            <div class="handoff-step" style="transition-delay: 0.2s;">
+              <div class="handoff-step-icon bg-gradient-to-br from-amber-400 to-amber-500">
+                <i data-lucide="file-text" class="w-7 h-7 text-white"></i>
+              </div>
+              <div>
+                <p class="text-sm font-bold text-text">Context Prepared</p>
+                <p class="text-xs text-text-muted">Summary ready for staff</p>
+              </div>
+            </div>
+
+            <!-- Connector 2 -->
+            <div class="handoff-connector" style="animation-delay: 0.5s;"></div>
+
+            <!-- Step 3: Staff Takes Over -->
+            <div class="handoff-step" style="transition-delay: 0.3s;">
+              <div class="handoff-step-icon bg-gradient-to-br from-green-500 to-green-600">
+                <i data-lucide="user" class="w-7 h-7 text-white"></i>
+              </div>
+              <div>
+                <p class="text-sm font-bold text-text">Staff Takes Over</p>
+                <p class="text-xs text-text-muted">Seamless call transfer</p>
+              </div>
+            </div>
+
+            <!-- Connector 3 -->
+            <div class="handoff-connector" style="animation-delay: 1s;"></div>
+
+            <!-- Step 4: Issue Resolved -->
+            <div class="handoff-step" style="transition-delay: 0.4s;">
+              <div class="handoff-step-icon bg-gradient-to-br from-emerald-500 to-emerald-600">
+                <i data-lucide="check-circle" class="w-7 h-7 text-white"></i>
+              </div>
+              <div>
+                <p class="text-sm font-bold text-text">Issue Resolved</p>
+                <p class="text-xs text-text-muted">Patient satisfied</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 6: Integrations Bar -->
+  <section class="py-16 md:py-24 bg-subtle grain-overlay">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Header -->
+      <div class="text-center mb-12 fade-up">
+        <h2 class="text-3xl md:text-4xl font-bold text-text mb-4">
+          Integrates With Your Existing Software
+        </h2>
+      </div>
+
+      <!-- Integration Cards -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-10">
+        <div class="fade-up fade-up-delay-1 integration-card bg-white border border-border rounded-xl p-4 text-center">
+          <div class="w-12 h-12 mx-auto mb-2 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center text-blue-600 font-bold">OD</div>
+          <p class="text-sm font-medium text-text">Open Dental</p>
+        </div>
+        <div class="fade-up fade-up-delay-2 integration-card bg-white border border-border rounded-xl p-4 text-center">
+          <div class="w-12 h-12 mx-auto mb-2 bg-gradient-to-br from-green-100 to-green-200 rounded-xl flex items-center justify-center text-green-600 font-bold">DX</div>
+          <p class="text-sm font-medium text-text">Dentrix</p>
+        </div>
+        <div class="fade-up fade-up-delay-3 integration-card bg-white border border-border rounded-xl p-4 text-center">
+          <div class="w-12 h-12 mx-auto mb-2 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl flex items-center justify-center text-orange-600 font-bold">ES</div>
+          <p class="text-sm font-medium text-text">Eaglesoft</p>
+        </div>
+        <div class="fade-up fade-up-delay-4 integration-card bg-white border border-border rounded-xl p-4 text-center">
+          <div class="w-12 h-12 mx-auto mb-2 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl flex items-center justify-center text-purple-600 font-bold">CD</div>
+          <p class="text-sm font-medium text-text">Curve Dental</p>
+        </div>
+        <div class="fade-up fade-up-delay-5 integration-card bg-white border border-border rounded-xl p-4 text-center">
+          <div class="w-12 h-12 mx-auto mb-2 bg-gradient-to-br from-red-100 to-red-200 rounded-xl flex items-center justify-center text-red-600 font-bold">GC</div>
+          <p class="text-sm font-medium text-text">Google Calendar</p>
+        </div>
+      </div>
+
+      <!-- Link -->
+      <div class="text-center fade-up">
+        <a href="#integrations" class="animated-underline inline-flex items-center gap-2 text-primary font-medium">
+          See All Integrations
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 7: Final CTA -->
+  <section class="py-16 md:py-24 cta-gradient overflow-hidden">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+
+      <h2 class="fade-up text-3xl md:text-4xl font-bold text-white mb-4">
+        Ready to Automate Your Front Desk?
+      </h2>
+      <p class="fade-up fade-up-delay-1 text-lg text-white/80 mb-8">
+        Join 50+ clinics saving hours every week.
+      </p>
+
+      <a href="#demo" class="fade-up fade-up-delay-2 magnetic-btn inline-flex items-center gap-2 px-8 py-4 bg-white text-primary font-semibold rounded-lg hover:bg-gray-100 transition-colors shadow-lg">
+        Book a Free Demo
+        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+      </a>
+
+      <div class="my-12 border-t border-white/20"></div>
+
+      <div class="fade-up fade-up-delay-3 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 text-white/90 text-sm">
+        <div class="flex items-center justify-center gap-2">
+          <i data-lucide="check" class="w-4 h-4"></i>
+          <span>24/7 Call Handling</span>
+        </div>
+        <div class="flex items-center justify-center gap-2">
+          <i data-lucide="check" class="w-4 h-4"></i>
+          <span>Smart Booking</span>
+        </div>
+        <div class="flex items-center justify-center gap-2">
+          <i data-lucide="check" class="w-4 h-4"></i>
+          <span>PMS Integration</span>
+        </div>
+        <div class="flex items-center justify-center gap-2">
+          <i data-lucide="check" class="w-4 h-4"></i>
+          <span>SMS Reminders</span>
+        </div>
+        <div class="flex items-center justify-center gap-2">
+          <i data-lucide="check" class="w-4 h-4"></i>
+          <span>Multilingual</span>
+        </div>
+        <div class="flex items-center justify-center gap-2">
+          <i data-lucide="check" class="w-4 h-4"></i>
+          <span>HIPAA Compliant</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-subtle border-t border-border">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+      <!-- Newsletter Section -->
+      <div class="max-w-md mx-auto text-center mb-12 pb-12 border-b border-border">
+        <h3 class="font-semibold text-text mb-2">Get clinic automation tips</h3>
+        <p class="text-sm text-text-muted mb-4">Join 500+ clinic owners getting weekly insights</p>
+        <form class="flex gap-2" id="newsletter-form">
+          <input type="email" placeholder="Enter your email" class="newsletter-input flex-1" required>
+          <button type="submit" class="px-4 py-2 bg-primary text-white font-medium rounded-lg hover:bg-primary-dark transition-colors">
+            Subscribe
+          </button>
+        </form>
+        <p class="text-xs text-text-muted mt-2" id="newsletter-success" style="display: none;">Thanks for subscribing!</p>
+      </div>
+
+      <!-- Footer Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+
+        <!-- Product -->
+        <div>
+          <h4 class="font-semibold text-text mb-4">Product</h4>
+          <ul class="space-y-3">
+            <li><a href="features.html" class="text-text-muted hover:text-text transition-colors">Features</a></li>
+            <li><a href="#integrations" class="text-text-muted hover:text-text transition-colors">Integrations</a></li>
+            <li><a href="index.html#pricing" class="text-text-muted hover:text-text transition-colors">Pricing</a></li>
+            <li><a href="#security" class="text-text-muted hover:text-text transition-colors">Security</a></li>
+          </ul>
+        </div>
+
+        <!-- Use Cases -->
+        <div>
+          <h4 class="font-semibold text-text mb-4">Use Cases</h4>
+          <ul class="space-y-3">
+            <li><a href="#dental" class="text-text-muted hover:text-text transition-colors">Dental Clinics</a></li>
+            <li><a href="#medspa" class="text-text-muted hover:text-text transition-colors">Med Spas</a></li>
+            <li><a href="#chiro" class="text-text-muted hover:text-text transition-colors">Chiropractic</a></li>
+            <li><a href="#aesthetic" class="text-text-muted hover:text-text transition-colors">Aesthetic</a></li>
+          </ul>
+        </div>
+
+        <!-- Resources -->
+        <div>
+          <h4 class="font-semibold text-text mb-4">Resources</h4>
+          <ul class="space-y-3">
+            <li><a href="#blog" class="text-text-muted hover:text-text transition-colors">Blog</a></li>
+            <li><a href="#help" class="text-text-muted hover:text-text transition-colors">Help Center</a></li>
+            <li><a href="#cases" class="text-text-muted hover:text-text transition-colors">Case Studies</a></li>
+          </ul>
+        </div>
+
+        <!-- Company -->
+        <div>
+          <h4 class="font-semibold text-text mb-4">Company</h4>
+          <ul class="space-y-3">
+            <li><a href="#about" class="text-text-muted hover:text-text transition-colors">About</a></li>
+            <li><a href="#contact" class="text-text-muted hover:text-text transition-colors">Contact</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom Row -->
+      <div class="pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
+
+        <div class="flex items-center gap-4">
+          <a href="index.html" class="text-xl font-bold text-primary">ClinicFront</a>
+          <div class="flex items-center gap-2">
+            <a href="#" class="social-icon text-text-muted">
+              <i data-lucide="linkedin" class="w-5 h-5"></i>
+            </a>
+            <a href="#" class="social-icon text-text-muted">
+              <i data-lucide="twitter" class="w-5 h-5"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row items-center gap-2 md:gap-4">
+          <p class="text-sm text-text-muted">
+            &copy; 2025 ClinicFront. All rights reserved.
+          </p>
+          <span class="hidden md:inline text-text-muted">·</span>
+          <p class="text-sm text-text-muted">Built with care in Miami</p>
+        </div>
+
+        <div class="flex items-center gap-6 text-sm">
+          <a href="#privacy" class="animated-underline text-text-muted hover:text-text transition-colors">Privacy Policy</a>
+          <a href="#terms" class="animated-underline text-text-muted hover:text-text transition-colors">Terms of Service</a>
+          <a href="#hipaa" class="animated-underline text-text-muted hover:text-text transition-colors">HIPAA Compliance</a>
+          <div class="hidden lg:flex items-center gap-1 text-green-600 text-xs font-medium">
+            <i data-lucide="shield-check" class="w-4 h-4"></i>
+            HIPAA Compliant
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // ===== PAGE LOADER =====
+    window.addEventListener('load', () => {
+      const loader = document.getElementById('page-loader');
+      if (loader) {
+        setTimeout(() => {
+          loader.classList.add('loaded');
+        }, 300);
+      }
+    });
+
+    // ===== CUSTOM CURSOR =====
+    const cursor = document.getElementById('custom-cursor');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+    if (cursor && !prefersReducedMotion && !isTouchDevice && window.matchMedia('(pointer: fine)').matches) {
+      document.body.classList.add('custom-cursor-active');
+
+      document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+      });
+
+      const hoverElements = document.querySelectorAll('a, button, [role="button"], .feature-card, .integration-card, .flow-card, .handoff-step, .calendar-date');
+      hoverElements.forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+      });
+    }
+
+    // ===== MAGNETIC BUTTONS =====
+    if (!prefersReducedMotion) {
+      const magneticBtns = document.querySelectorAll('.magnetic-btn');
+      magneticBtns.forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+          const rect = btn.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+        });
+
+        btn.addEventListener('mouseleave', () => {
+          btn.style.transform = 'translate(0, 0)';
+        });
+      });
+    }
+
+    // ===== MOBILE MENU TOGGLE =====
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // ===== STICKY HEADER WITH BLUR ON SCROLL =====
+    const navbar = document.getElementById('navbar');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 50) {
+        navbar.classList.add('nav-scrolled');
+      } else {
+        navbar.classList.remove('nav-scrolled');
+      }
+    });
+
+    // ===== SCROLL-TRIGGERED FADE-IN ANIMATIONS =====
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-up').forEach(el => {
+      fadeObserver.observe(el);
+    });
+
+    // ===== FLOW DIAGRAM LINE ANIMATION =====
+    const flowDiagram = document.getElementById('flow-diagram');
+    const flowObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('.flow-line').forEach((line, i) => {
+            setTimeout(() => {
+              line.classList.add('animated');
+            }, i * 200);
+          });
+        }
+      });
+    }, { threshold: 0.3 });
+
+    if (flowDiagram) {
+      flowObserver.observe(flowDiagram);
+    }
+
+    // ===== DASHBOARD STATS COUNTER =====
+    const analyticsSection = document.getElementById('analytics-section');
+    let dashboardAnimated = false;
+
+    function animateDashboardCounter(el) {
+      const target = parseInt(el.dataset.target);
+      const suffix = el.dataset.suffix || '';
+      const duration = 2000;
+      const start = performance.now();
+
+      function update(currentTime) {
+        const elapsed = currentTime - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        const current = Math.floor(target * easeOut);
+
+        el.textContent = current + suffix;
+
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        }
+      }
+
+      requestAnimationFrame(update);
+    }
+
+    const dashboardObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !dashboardAnimated) {
+          dashboardAnimated = true;
+          document.querySelectorAll('.dashboard-stat').forEach(el => {
+            animateDashboardCounter(el);
+          });
+          // Animate chart line
+          document.querySelectorAll('.chart-line').forEach(line => {
+            line.classList.add('animated');
+          });
+        }
+      });
+    }, { threshold: 0.5 });
+
+    if (analyticsSection) {
+      dashboardObserver.observe(analyticsSection);
+    }
+
+    // ===== NEWSLETTER FORM =====
+    const newsletterForm = document.getElementById('newsletter-form');
+    const newsletterSuccess = document.getElementById('newsletter-success');
+
+    if (newsletterForm) {
+      newsletterForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        newsletterForm.style.display = 'none';
+        newsletterSuccess.style.display = 'block';
+      });
+    }
+
+    // ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          e.preventDefault();
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // ===== INTERACTIVE CALENDAR =====
+    const appointments = {
+      '15': { title: 'Dr. Johnson - 10:00 AM', details: 'Checkup • AI Booked' },
+      '19': { title: 'Dr. Smith - 2:00 PM', details: 'Cleaning • AI Booked' },
+      '22': { title: 'Dr. Patel - 9:30 AM', details: 'Consultation • AI Booked' },
+      '25': { title: 'Dr. Smith - 4:00 PM', details: 'Follow-up • AI Booked' }
+    };
+
+    const calendarDates = document.querySelectorAll('.calendar-date');
+    const appointmentTitle = document.getElementById('appointment-title');
+    const appointmentDetails = document.getElementById('appointment-details');
+    const appointmentDisplay = document.getElementById('appointment-display');
+
+    calendarDates.forEach(dateEl => {
+      dateEl.addEventListener('click', () => {
+        // Remove active class from all dates
+        calendarDates.forEach(d => d.classList.remove('active'));
+        // Add active class to clicked date
+        dateEl.classList.add('active');
+
+        const date = dateEl.dataset.date;
+        const appointment = appointments[date];
+
+        if (appointment && appointmentTitle && appointmentDetails) {
+          // Trigger re-animation
+          appointmentDisplay.style.animation = 'none';
+          appointmentDisplay.offsetHeight; // Trigger reflow
+          appointmentDisplay.style.animation = null;
+
+          appointmentTitle.textContent = appointment.title;
+          appointmentDetails.textContent = appointment.details;
+        }
+      });
+    });
+
+    // ===== HANDOFF FLOW ANIMATION =====
+    const handoffFlow = document.getElementById('handoff-flow');
+
+    if (handoffFlow) {
+      const handoffObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const steps = entry.target.querySelectorAll('.handoff-step');
+            steps.forEach((step, i) => {
+              setTimeout(() => {
+                step.classList.add('visible');
+              }, i * 200);
+            });
+          }
+        });
+      }, { threshold: 0.3 });
+
+      handoffObserver.observe(handoffFlow);
+    }
+
+    // Re-initialize icons
+    setTimeout(() => {
+      lucide.createIcons();
+    }, 100);
+  </script>
+</body>
+</html>
