@@ -139,6 +139,7 @@
       color: white;
     }
   </style>
+  <script type="text/javascript" src="https://app.iclosed.io/assets/widget.js" async></script>
 </head>
 <body class="font-sans text-text bg-white antialiased">
 
@@ -169,8 +170,7 @@
         </div>
 
         <div class="hidden md:flex items-center gap-4">
-          <a href="#demo" class="px-4 py-2 text-primary border border-primary rounded-lg hover:bg-primary-light transition-colors">Contact Sales</a>
-          <a href="#login" class="text-text-muted hover:text-text">Login</a>
+          <a href="https://app.iclosed.io/e/ClinicFront/book-your-1-on-1-demo-of-clinic-front-ai" target="_blank" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors">Schedule a Demo</a>
         </div>
 
         <button id="mobile-menu-btn" class="md:hidden p-2"><i data-lucide="menu" class="w-6 h-6"></i></button>
@@ -221,7 +221,7 @@
           <h2 class="text-2xl md:text-3xl font-bold text-text mb-6">
             ClinicFront + Open Dental: The Seamless AI Receptionist for Open Dental Clinics
           </h2>
-          <a href="#demo" class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary-dark transition-colors shadow-lg shadow-primary/25">
+          <a href="https://app.iclosed.io/e/ClinicFront/book-your-1-on-1-demo-of-clinic-front-ai" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary-dark transition-colors shadow-lg shadow-primary/25">
             Schedule a Demo
             <i data-lucide="arrow-right" class="w-5 h-5"></i>
           </a>
@@ -325,7 +325,7 @@
       <p class="fade-up fade-up-delay-1 text-lg text-text-muted mb-8">
         Book a demo and see how ClinicFront works with your Open Dental setup.
       </p>
-      <a href="#demo" class="fade-up fade-up-delay-2 inline-flex items-center gap-2 px-8 py-4 bg-primary text-white font-semibold rounded-lg hover:bg-primary-dark transition-colors shadow-lg shadow-primary/25">
+      <a href="https://app.iclosed.io/e/ClinicFront/book-your-1-on-1-demo-of-clinic-front-ai" target="_blank" class="fade-up fade-up-delay-2 inline-flex items-center gap-2 px-8 py-4 bg-primary text-white font-semibold rounded-lg hover:bg-primary-dark transition-colors shadow-lg shadow-primary/25">
         Schedule a Demo
         <i data-lucide="arrow-right" class="w-5 h-5"></i>
       </a>
@@ -400,5 +400,68 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
   </script>
+
+  <!-- Floating CTA Button -->
+  <a href="https://app.iclosed.io/e/ClinicFront/book-your-1-on-1-demo-of-clinic-front-ai" target="_blank" class="floating-cta group" aria-label="Schedule a Demo">
+    <i data-lucide="calendar" class="w-6 h-6 text-white"></i>
+    <span class="floating-cta-tooltip">Schedule a Demo</span>
+  </a>
+
+  <style>
+    .floating-cta {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 56px;
+      height: 56px;
+      background: #2563EB;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+      z-index: 9999;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      animation: pulse-ring 2s ease-out infinite;
+    }
+    .floating-cta:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+    }
+    .floating-cta-tooltip {
+      position: absolute;
+      right: 70px;
+      background: #1e293b;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
+    .floating-cta-tooltip::after {
+      content: '';
+      position: absolute;
+      right: -6px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 6px solid transparent;
+      border-left-color: #1e293b;
+    }
+    .floating-cta:hover .floating-cta-tooltip {
+      opacity: 1;
+      visibility: visible;
+    }
+    @keyframes pulse-ring {
+      0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); }
+      70% { box-shadow: 0 0 0 12px rgba(37, 99, 235, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+    }
+  </style>
+
+  <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

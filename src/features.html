@@ -591,6 +591,7 @@
       color: white;
     }
   </style>
+  <script type="text/javascript" src="https://app.iclosed.io/assets/widget.js" async></script>
 </head>
 <body class="font-sans text-text bg-white antialiased">
 
@@ -637,11 +638,8 @@
 
         <!-- Desktop CTAs -->
         <div class="hidden md:flex items-center gap-4">
-          <a href="#contact" class="px-4 py-2 text-primary border border-primary rounded-lg hover:bg-primary-light transition-colors">
-            Contact Sales
-          </a>
-          <a href="#login" class="text-text-muted hover:text-text transition-colors">
-            Login
+          <a href="https://app.iclosed.io/e/ClinicFront/book-your-1-on-1-demo-of-clinic-front-ai" target="_blank" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors">
+            Schedule a Demo
           </a>
         </div>
 
@@ -659,8 +657,7 @@
         <a href="integrations/index.html" class="block text-text-muted hover:text-text">Integrations</a>
         <a href="index.html#pricing" class="block text-text-muted hover:text-text">Pricing</a>
         <hr class="border-border">
-        <a href="#contact" class="block text-primary font-medium">Contact Sales</a>
-        <a href="#login" class="block text-text-muted">Login</a>
+        <a href="https://app.iclosed.io/e/ClinicFront/book-your-1-on-1-demo-of-clinic-front-ai" target="_blank" class="block text-primary font-medium">Schedule a Demo</a>
       </div>
     </div>
   </nav>
@@ -676,8 +673,8 @@
       <p class="fade-up fade-up-delay-1 text-lg md:text-xl text-text-muted max-w-2xl mx-auto mb-8">
         From phone call to booked appointment — fully automated, zero workflow changes for your staff.
       </p>
-      <a href="#demo" class="fade-up fade-up-delay-2 magnetic-btn btn-primary inline-flex items-center gap-2 px-8 py-4 bg-primary text-white font-semibold rounded-lg hover:bg-primary-dark transition-colors shadow-lg shadow-primary/25">
-        Book a Free Demo
+      <a href="https://app.iclosed.io/e/ClinicFront/book-your-1-on-1-demo-of-clinic-front-ai" target="_blank" class="fade-up fade-up-delay-2 magnetic-btn btn-primary inline-flex items-center gap-2 px-8 py-4 bg-primary text-white font-semibold rounded-lg hover:bg-primary-dark transition-colors shadow-lg shadow-primary/25">
+        Schedule a Demo
         <i data-lucide="arrow-right" class="w-5 h-5"></i>
       </a>
     </div>
@@ -1257,8 +1254,8 @@
         Join 50+ clinics saving hours every week.
       </p>
 
-      <a href="#demo" class="fade-up fade-up-delay-2 magnetic-btn inline-flex items-center gap-2 px-8 py-4 bg-white text-primary font-semibold rounded-lg hover:bg-gray-100 transition-colors shadow-lg">
-        Book a Free Demo
+      <a href="https://app.iclosed.io/e/ClinicFront/book-your-1-on-1-demo-of-clinic-front-ai" target="_blank" class="fade-up fade-up-delay-2 magnetic-btn inline-flex items-center gap-2 px-8 py-4 bg-white text-primary font-semibold rounded-lg hover:bg-gray-100 transition-colors shadow-lg">
+        Schedule a Demo
         <i data-lucide="arrow-right" class="w-5 h-5"></i>
       </a>
 
@@ -1637,5 +1634,68 @@
       lucide.createIcons();
     }, 100);
   </script>
+
+  <!-- Floating CTA Button -->
+  <a href="https://app.iclosed.io/e/ClinicFront/book-your-1-on-1-demo-of-clinic-front-ai" target="_blank" class="floating-cta group" aria-label="Schedule a Demo">
+    <i data-lucide="calendar" class="w-6 h-6 text-white"></i>
+    <span class="floating-cta-tooltip">Schedule a Demo</span>
+  </a>
+
+  <style>
+    .floating-cta {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 56px;
+      height: 56px;
+      background: #2563EB;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+      z-index: 9999;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      animation: pulse-ring 2s ease-out infinite;
+    }
+    .floating-cta:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+    }
+    .floating-cta-tooltip {
+      position: absolute;
+      right: 70px;
+      background: #1e293b;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
+    .floating-cta-tooltip::after {
+      content: '';
+      position: absolute;
+      right: -6px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 6px solid transparent;
+      border-left-color: #1e293b;
+    }
+    .floating-cta:hover .floating-cta-tooltip {
+      opacity: 1;
+      visibility: visible;
+    }
+    @keyframes pulse-ring {
+      0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); }
+      70% { box-shadow: 0 0 0 12px rgba(37, 99, 235, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+    }
+  </style>
+
+  <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
